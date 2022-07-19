@@ -1,8 +1,9 @@
-import sys, subprocess
+import sys, subprocess, os
 from pathlib import Path
 
-folder_path = sys.argv[1]   
-bat_file = Path(folder_path) / 'extractor.bat'
+folder_path = Path(sys.argv[1])
+os.chdir(folder_path)
+bat_file = folder_path / 'extractor.bat'
 instructions = open(bat_file,'w+')
 instructions.write('@echo on \nfor /R %%f IN (*.mkv) DO ffmpeg -i "%%f" -map 0:s:0 "%%~nf.ass" \npause')
 instructions.close()
